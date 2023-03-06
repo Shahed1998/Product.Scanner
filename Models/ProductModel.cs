@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Product.Scanner.Models
 {
-    public class Product
+    public class ProductModel
     {
         [Key]
         public int Id { get; set; }
@@ -16,6 +16,7 @@ namespace Product.Scanner.Models
         public bool IsUsed { get; set; } = false;
         [Required]
         public string QRCode { get; set; }
+        public string Image { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }
