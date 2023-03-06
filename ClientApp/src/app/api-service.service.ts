@@ -15,4 +15,7 @@ export class ApiServiceService {
   getAllProducts() {
     return this.httpclient.get(this.Api_URL);
   }
+  getProductById(id: number) {
+    return this.httpclient.get(`${this.Api_URL}/${id}`);
+  }
 }

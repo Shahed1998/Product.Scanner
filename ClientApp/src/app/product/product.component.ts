@@ -8,6 +8,12 @@ import { ApiServiceService } from "../api-service.service";
 })
 export class ProductComponent implements OnInit {
   productList: any;
+  productId: number;
+  productName = "";
+  productDesc = "";
+  productPrice = 0;
+  productQRStr = "";
+
   constructor(private apiservice: ApiServiceService) {}
 
   ngOnInit() {
@@ -15,5 +21,21 @@ export class ProductComponent implements OnInit {
       this.productList = res;
       this.productList = this.productList.data;
     });
+  }
+  displayStyle = "none";
+
+  openPopup(id) {
+    this.apiservice.getProductById(id).subscribe((res) => {
+      var resp: any = res;
+      this.productName = resp.name;
+      this.productDesc = resp.details;
+      this.productPrice = resp.price;
+      this.productQRStr = resp.qrCode;
+    });
+    this.displayStyle = "block";
+  }
+  closePopup() {
+    this.productName = "";
+    this.displayStyle = "none";
   }
 }

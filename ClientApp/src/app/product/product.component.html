@@ -1,4 +1,49 @@
-<div class="card" style="">
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{ display: displayStyle }"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{ this.productName }}</h4>
+      </div>
+      <div class="modal-body">
+        <p><b>Details:</b> {{ productDesc }}</p>
+        <p><b>Price:</b> {{ productPrice }}</p>
+        <div class="card">
+          <div class="card-header"><b>Scan</b></div>
+          <div class="card-body">
+            <qrcode
+              id="print-section"
+              [qrdata]="productQRStr"
+              [width]="200"
+              [errorCorrectionLevel]="'M'"
+            ></qrcode>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closePopup()">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-info"
+          printTitle="{{ this.productName }}"
+          printSectionId="print-section"
+          ngxPrint
+        >
+          Print
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Product list view table -->
+<div class="card">
   <div class="card-header">Products</div>
   <div class="card-body">
     <table class="table table-hover">
@@ -15,7 +60,11 @@
           <td>{{ product.name }}</td>
           <td>{{ product.price }}</td>
           <td>{{ product.isUsed }}</td>
-          <td><button class="btn btn-info">View</button></td>
+          <td>
+            <button class="btn btn-info" (click)="openPopup(product.id)">
+              View
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>

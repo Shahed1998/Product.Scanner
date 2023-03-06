@@ -39,6 +39,23 @@ namespace Product.Scanner.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetProductDetails(int id)
+        {
+            try
+            {
+                var product = _context.Products.FirstOrDefault(x => x.Id == id);
+                var config = new MapperConfiguration(cfg => { cfg.CreateMap<ProductModel, ProductDTO>(); });
+                var mapper = new Mapper(config);
+                var result = mapper.Map<ProductDTO>(product);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost]
         public IActionResult AddProduct(ProductDTO dto)
         {
